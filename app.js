@@ -18,6 +18,14 @@ const path = require('path')
     //public
     app.use(express.static(path.join(__dirname + "/public")))
 
+    //mongoose
+    mongoose.Promise = global.Promise
+    mongoose.connect("mongodb://localhost/blog").then(()=> {
+        console.log('Conectado ao mongo')
+    }).catch((error) => {
+        console.log('Erro ao se conectar: ' + error)
+    })
+
 
 //rotas
 app.get('/',(req,res) => {
