@@ -1,6 +1,6 @@
 const express = require('express')
 const handlebars = require('express-handlebars')
-//import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const app = express()
 const admin = require('./routes/admin')
