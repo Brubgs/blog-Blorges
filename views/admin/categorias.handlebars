@@ -1,3 +1,24 @@
-<h2>Lista de categorias:</h2>
+<h1>Lista de categorias</h1>
 <hr>
-<a href="/admin/categorias/add"><button class="btn btn-success">Nova categoria</button></a>
+<a href="/admin/categorias/add"><button class="btn btn-primary">Nova categoria</button></a>
+
+{{#each categorias}}
+    <div class="card mt-4">
+        <div class="card-body d-flex flex-column gap-2">
+            <h4 class="text-primary">{{nome}}</h4>
+            <small>Slug: {{slug}}</small>
+            <small>Data de criação: {{date}}</small>
+            <div class="d-flex gap-2">
+                <a href="/admin/categorias/edit/{{_id}}"><button class="btn btn-success">Editar categoria</button></a>
+                <form action="/admin/categorias/deletar" method="post">
+                    <input type="hidden" name="id" value="{{_id}}">
+                    <button type="submit" class="btn btn-danger">Deletar categoria</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{{else}}
+    <p class="mt-2">Nenhuma categoria registrada</p>
+
+{{/each}}

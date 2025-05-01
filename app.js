@@ -35,11 +35,6 @@ const path = require('path')
     //public
     app.use(express.static(path.join(__dirname + "/public")))
 
-    app.use((req,res,next) => {
-        console.log('I am a middleware')
-        next()
-    })
-
     //mongoose
     mongoose.Promise = global.Promise
     mongoose.connect("mongodb://localhost/blog").then(()=> {
