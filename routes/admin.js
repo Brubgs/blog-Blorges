@@ -98,15 +98,14 @@ router.post("/categorias/edit", (req,res) => {
                 res.redirect("/admin/categorias")
             })
         }
-
         
-
     }).catch((err)=>{
         req.flash("error_msg", "Erro ao editar categoria")
         res.redirect("/admin/categorias")
     })
 
 })
+
 router.post('/categorias/deletar', (req,res) => {
     Categoria.deleteOne({_id: req.body.id}).then(() => {
         req.flash("success_msg","Categoria deletada com sucesso")
@@ -117,5 +116,17 @@ router.post('/categorias/deletar', (req,res) => {
     })
 })
 
+router.get("/postagens", (req,res) => {
+    res.render('admin/postagens')
+})
+
+router.get("/postagens/add", (req,res) => {
+    Categoria.find().lean().then((categorias) => {
+        res.render("admin/addpostagem", {categorias: categorias})
+    }).catch((err) => {
+        req.flash("error_msg", "Erro ao carregar formulário")
+        res.redirect('/admin/postagens')
+    })
+})
 
 module.exports = router
