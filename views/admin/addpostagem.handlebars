@@ -1,7 +1,12 @@
+{{#each erros}}
+    <div class="alert alert-danger">{{texto}}</div>
+{{else}}
+
+{{/each}}
 <div class="card">
     <div class="card-body">
         <h4>Nova postagem</h4>
-        <form action="" class="d-flex flex-column">
+        <form action="/admin/postagens/nova" method="post" class="d-flex flex-column">
             <label for="titulo">Titulo:</label>
             <input type="text" name="titulo" class="form-control">
 
@@ -20,7 +25,7 @@
                 <option value="{{_id}}">{{nome}}</option>
 
                 {{else}}
-                <option value="">Nenhuma categoria registrada</option>
+                <option value="0">Nenhuma categoria registrada</option>
                 {{/each}}
             </select>
 
