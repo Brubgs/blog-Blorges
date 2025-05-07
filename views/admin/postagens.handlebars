@@ -11,10 +11,12 @@
             <small>Categoria: {{categoria.nome}}</small>
             <div>
                 <a href="/admin/postagens/edit/{{_id}}"><button class="btn btn-success mt-4">Editar postagem</button></a>
+                
+                <a href="/admin/postagens/deletar/{{_id}}"><button class="btn btn-danger mt-4">Deletar postagem</button></a>
             </div>
         </div>
     </div>
 
 {{else}}
-    <p>Nenhuma postagem registrada</p>
+    <p class="mt-2">Nenhuma postagem registrada</p>
 {{/each}}
