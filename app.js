@@ -6,6 +6,7 @@ const flash = require('connect-flash')
 
 const app = express()
 const admin = require('./routes/admin')
+const usuarios = require('./routes/usuario')
 const path = require('path')
 
 require("./models/Postagem")
@@ -110,6 +111,7 @@ app.get("/404", (req,res) => {
 })
 
 app.use('/admin', admin)
+app.use('/usuarios', usuarios)
 
 app.listen(3000, () => {
     console.log("Servidor rodando")
