@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
+const bcrypt = require("bcryptjs")
 
 require("../models/Usuario")
 const Usuario = mongoose.model("usuarios")
@@ -34,8 +35,34 @@ router.post("/cadastro", (req,res) => {
 
     if(erros.length > 0) {
         res.render("usuarios/cadastro", {erros:erros})
-    }else {
 
+    }else {
+        Usuario.findOne({email : req.body.email}).lean().then((usuario)=> {
+            if(usuario){
+                req.flash("error_msg", "Email já cadastrado")
+                res.redirect("/usuarios/cadastro")
+            }
+            else {
+                const salt = bcrypt.genSaltSync(10)
+                const hash = bcrypt.hashSync(req.body.senha, salt)
+                const userData = {
+                    nome: req.body.nome,
+                    email:req.body.email,
+                    senha: hash
+                }
+
+                new Usuario(userData).save().then(() => {
+                    req.flash("success_msg", "Usuário cadastrado com sucesso")
+                    res.redirect("/")
+                }).catch((err) => {
+                    req.flash('error_msg', 'Erro ao cadastrar o usuario')
+                    res.redirect("/usuarios/cadastro")
+                })            
+            }
+        }).catch((err) => {
+            req.flash("error_msg", "Houve um erro interno ao cadastrar")
+            res.redirect("/")
+        })
     }
 })
 
