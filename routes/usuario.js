@@ -66,4 +66,8 @@ router.post("/cadastro", (req,res) => {
     }
 })
 
+router.get('/login', (req,res) => {
+    res.render("usuarios/login")
+})
+
 module.exports = router
